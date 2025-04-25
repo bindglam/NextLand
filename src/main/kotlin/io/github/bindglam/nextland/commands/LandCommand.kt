@@ -6,11 +6,11 @@ import dev.jorel.commandapi.arguments.GreedyStringArgument
 import dev.jorel.commandapi.arguments.IntegerArgument
 import dev.jorel.commandapi.arguments.OfflinePlayerArgument
 import dev.jorel.commandapi.executors.PlayerCommandExecutor
+import io.github.bindglam.nextland.ChunkPos
+import io.github.bindglam.nextland.Land
 import io.github.bindglam.nextland.LandManager
 import io.github.bindglam.nextland.NextLand
 import io.github.bindglam.nextland.events.LandCreateEvent
-import io.github.bindglam.nextland.ChunkPos
-import io.github.bindglam.nextland.Land
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.event.ClickEvent
 import net.kyori.adventure.text.format.NamedTextColor
@@ -18,6 +18,8 @@ import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Bukkit
 import org.bukkit.OfflinePlayer
 import org.bukkit.entity.Player
+import java.text.DecimalFormat
+
 
 object LandCommand {
     fun register(){
@@ -112,11 +114,13 @@ object LandCommand {
                     }),
                 CommandAPICommand("정보")
                     .executesPlayer(PlayerCommandExecutor { player, _ ->
+                        val format = DecimalFormat("###,###")
+
                         val requirePrice = LandManager.getOwnedLands(player.uniqueId).size*10000000.0
                         player.sendMessage(Component.text("다음 땅을 생성하는데 필요한 금액 : ").color(NamedTextColor.YELLOW)
-                            .append(Component.text("${requirePrice.toInt()}원").color(NamedTextColor.YELLOW).decorate(TextDecoration.BOLD)))
+                            .append(Component.text("${format.format(requirePrice.toInt())}원").color(NamedTextColor.YELLOW).decorate(TextDecoration.BOLD)))
                         player.sendMessage(Component.text("현재 땅 갯수 : ").color(NamedTextColor.YELLOW)
-                            .append(Component.text("${LandManager.getOwnedLands(player.uniqueId).size}개").color(NamedTextColor.YELLOW).decorate(TextDecoration.BOLD)))
+                            .append(Component.text("${format.format(LandManager.getOwnedLands(player.uniqueId).size)}개").color(NamedTextColor.YELLOW).decorate(TextDecoration.BOLD)))
                     }),
                 CommandAPICommand("관리자")
                     .withSubcommands(
