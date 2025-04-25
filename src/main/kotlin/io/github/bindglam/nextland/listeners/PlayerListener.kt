@@ -12,7 +12,6 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
 import org.bukkit.event.block.BlockBreakEvent
-import org.bukkit.event.block.BlockFromToEvent
 import org.bukkit.event.block.BlockPlaceEvent
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.event.player.PlayerMoveEvent
@@ -47,13 +46,13 @@ class PlayerListener : Listener {
         enteredPlayers[player] = land
 
         for(x in 0..<16){
-            land.chunkPos.world.spawnParticle(Particle.HAPPY_VILLAGER, land.chunkPos.getChunk().getBlock(0, 0, 0).location.add(x.toDouble(), player.location.y, 0.0), 1)
-            land.chunkPos.world.spawnParticle(Particle.HAPPY_VILLAGER, land.chunkPos.getChunk().getBlock(0, 0, 0).location.add(x.toDouble(), player.location.y, 16.0), 1)
+            land.pos.world.spawnParticle(Particle.HAPPY_VILLAGER, land.pos.chunk.getBlock(0, 0, 0).location.add(x.toDouble(), player.location.y, 0.0), 1)
+            land.pos.world.spawnParticle(Particle.HAPPY_VILLAGER, land.pos.chunk.getBlock(0, 0, 0).location.add(x.toDouble(), player.location.y, 16.0), 1)
         }
 
         for(z in 0..<16){
-            land.chunkPos.world.spawnParticle(Particle.HAPPY_VILLAGER, land.chunkPos.getChunk().getBlock(0, 0, 0).location.add(0.0, player.location.y, z.toDouble()), 1)
-            land.chunkPos.world.spawnParticle(Particle.HAPPY_VILLAGER, land.chunkPos.getChunk().getBlock(0, 0, 0).location.add(16.0, player.location.y, z.toDouble()), 1)
+            land.pos.world.spawnParticle(Particle.HAPPY_VILLAGER, land.pos.chunk.getBlock(0, 0, 0).location.add(0.0, player.location.y, z.toDouble()), 1)
+            land.pos.world.spawnParticle(Particle.HAPPY_VILLAGER, land.pos.chunk.getBlock(0, 0, 0).location.add(16.0, player.location.y, z.toDouble()), 1)
         }
     }
 
@@ -64,7 +63,7 @@ class PlayerListener : Listener {
         if(player.isOp) return
 
         val land = LandManager.getLand(block.location) ?: return
-        if(!LandManager.isOwnerOrLander(land, player.uniqueId)){
+        if(!LandManager.isOwnerOrAdmin(land, player.uniqueId)){
             event.isCancelled = true
             player.sendActionBar(Component.text("여기는 당신의 땅이 아닙니다!").color(NamedTextColor.RED))
         }
@@ -77,7 +76,7 @@ class PlayerListener : Listener {
         if(player.isOp) return
 
         val land = LandManager.getLand(block.location) ?: return
-        if(!LandManager.isOwnerOrLander(land, player.uniqueId)){
+        if(!LandManager.isOwnerOrAdmin(land, player.uniqueId)){
             event.isCancelled = true
             player.sendActionBar(Component.text("여기는 당신의 땅이 아닙니다!").color(NamedTextColor.RED))
         }
@@ -90,7 +89,7 @@ class PlayerListener : Listener {
         if(player.isOp) return
 
         val land = LandManager.getLand(block.location) ?: return
-        if(!LandManager.isOwnerOrLander(land, player.uniqueId)){
+        if(!LandManager.isOwnerOrAdmin(land, player.uniqueId)){
             event.isCancelled = true
             player.sendActionBar(Component.text("여기는 당신의 땅이 아닙니다!").color(NamedTextColor.RED))
         }

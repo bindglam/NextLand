@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/NextLand.main.iml" filepath="$PROJECT_DIR$/.idea/modules/NextLand.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/io.github.bindglam.NextLand.main.iml" filepath="$PROJECT_DIR$/.idea/modules/io.github.bindglam.NextLand.main.iml" />
     </modules>
   </component>
 </project>

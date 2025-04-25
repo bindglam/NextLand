@@ -6,7 +6,6 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
 import org.bukkit.event.block.*
-import org.bukkit.event.entity.EntityExplodeEvent
 
 class BlockListener : Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
@@ -16,25 +15,25 @@ class BlockListener : Listener {
 
         val land = LandManager.getLand(block.location) ?: return
         for(x in 0..15){
-            val chunk = land.chunkPos.getChunk()
+            val chunk = land.pos.chunk
             if(chunk.getBlock(x, 0, 0).x == block.x && chunk.getBlock(x, 0, 0).z == block.z){
                 event.isCancelled = true
             }
         }
         for(z in 0..15){
-            val chunk = land.chunkPos.getChunk()
+            val chunk = land.pos.chunk
             if(chunk.getBlock(0, 0, z).x == block.x && chunk.getBlock(0, 0, z).z == block.z){
                 event.isCancelled = true
             }
         }
         for(x in 0..15){
-            val chunk = land.chunkPos.getChunk()
+            val chunk = land.pos.chunk
             if(chunk.getBlock(x, 0, 15).x == block.x && chunk.getBlock(x, 0, 15).z == block.z){
                 event.isCancelled = true
             }
         }
         for(z in 0..15){
-            val chunk = land.chunkPos.getChunk()
+            val chunk = land.pos.chunk
             if(chunk.getBlock(15, 0, z).x == block.x && chunk.getBlock(15, 0, z).z == block.z){
                 event.isCancelled = true
             }
@@ -48,25 +47,25 @@ class BlockListener : Listener {
 
         val land = LandManager.getLand(block.location) ?: return
         for(x in 0..15){
-            val chunk = land.chunkPos.getChunk()
+            val chunk = land.pos.chunk
             if(chunk.getBlock(x, 0, 0).x == block.x && chunk.getBlock(x, 0, 0).z == block.z){
                 event.isCancelled = true
             }
         }
         for(z in 0..15){
-            val chunk = land.chunkPos.getChunk()
+            val chunk = land.pos.chunk
             if(chunk.getBlock(0, 0, z).x == block.x && chunk.getBlock(0, 0, z).z == block.z){
                 event.isCancelled = true
             }
         }
         for(x in 0..15){
-            val chunk = land.chunkPos.getChunk()
+            val chunk = land.pos.chunk
             if(chunk.getBlock(x, 0, 15).x == block.x && chunk.getBlock(x, 0, 15).z == block.z){
                 event.isCancelled = true
             }
         }
         for(z in 0..15){
-            val chunk = land.chunkPos.getChunk()
+            val chunk = land.pos.chunk
             if(chunk.getBlock(15, 0, z).x == block.x && chunk.getBlock(15, 0, z).z == block.z){
                 event.isCancelled = true
             }

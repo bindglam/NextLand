@@ -1,7 +1,7 @@
 plugins {
     id("java-library")
-    kotlin("jvm") version "1.9.22"
-    id("com.gradleup.shadow") version "8.3.0"
+    kotlin("jvm") version "2.0.21"
+    id("com.gradleup.shadow") version "9.0.0-beta12"
 }
 
 group = "io.github.bindglam"
@@ -15,28 +15,24 @@ repositories {
 }
 
 dependencies {
-    testImplementation("org.jetbrains.kotlin:kotlin-test")
+    implementation(kotlin("stdlib-jdk8"))
 
-    implementation("dev.jorel:commandapi-bukkit-shade:9.5.0")
+    implementation("dev.jorel:commandapi-bukkit-shade:10.0.0")
 
-    compileOnly("io.papermc.paper:paper-api:1.21-R0.1-SNAPSHOT")
+    compileOnly("io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT")
     compileOnly("com.github.MilkBowl:VaultAPI:1.7") {
         exclude(module = "bukkit")
     }
 }
 
+tasks.build {
+    dependsOn(tasks.shadowJar)
+}
+
 tasks.shadowJar {
     archiveFileName = "NextLand.jar"
 
-    dependencies {
-        include(dependency("dev.jorel:commandapi-bukkit-shade:9.5.0"))
-    }
-
     relocate("dev.jorel.commandapi", "io.github.bindglam.commandapi")
-}
-
-tasks.test {
-    useJUnitPlatform()
 }
 
 kotlin {

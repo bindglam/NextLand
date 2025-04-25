@@ -15,7 +15,8 @@ class EntityListener : Listener {
         val attacker = event.damager
         if(attacker !is Player) return
         val land = LandManager.getLand(attacker.location) ?: return
-        if(!LandManager.isOwnerOrLander(land, attacker.uniqueId)){
+
+        if(!LandManager.isOwnerOrAdmin(land, attacker.uniqueId)){
             event.isCancelled = true
         }
     }

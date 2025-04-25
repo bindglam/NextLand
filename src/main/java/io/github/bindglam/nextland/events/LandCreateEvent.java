@@ -1,6 +1,6 @@
 package io.github.bindglam.nextland.events;
 
-import io.github.bindglam.nextland.utils.ChunkPos;
+import io.github.bindglam.nextland.ChunkPos;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.player.PlayerEvent;

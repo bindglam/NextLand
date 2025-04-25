@@ -3,7 +3,6 @@ package io.github.bindglam.nextland
 import dev.jorel.commandapi.CommandAPI
 import dev.jorel.commandapi.CommandAPIBukkitConfig
 import io.github.bindglam.nextland.commands.LandCommand
-import io.github.bindglam.nextland.commands.LegacyLandCommand
 import io.github.bindglam.nextland.listeners.BlockListener
 import io.github.bindglam.nextland.listeners.EntityListener
 import io.github.bindglam.nextland.listeners.PlayerListener
