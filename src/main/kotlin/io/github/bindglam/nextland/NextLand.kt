@@ -41,9 +41,8 @@ class NextLand : JavaPlugin() {
 
     override fun onDisable() {
         CommandAPI.onDisable()
-        LandManager.save()
 
-        saveConfig()
+        LandManager.save()
     }
 
     private fun setupEconomy(): Boolean {

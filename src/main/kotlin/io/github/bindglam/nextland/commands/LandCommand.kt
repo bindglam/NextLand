@@ -45,7 +45,11 @@ object LandCommand {
                         }
 
                         for(blockID in NextLand.INSTANCE.config.getStringList("banned.blocks")) {
-                            if(player.chunk.contains(Registry.BLOCK.getOrThrow(NamespacedKey.fromString(blockID)!!).createBlockData())) {
+                            val type = Registry.BLOCK.getOrThrow(NamespacedKey.minecraft(blockID))
+
+                            if(player.chunk.contains(type.createBlockData())) {
+                                if(type == BlockType.BEDROCK && player.world.environment == World.Environment.NORMAL) continue
+
                                 player.sendMessage(Component.text("금지된 블록을 감지했습니다!").color(NamedTextColor.RED))
                                 return@PlayerCommandExecutor
                             }
