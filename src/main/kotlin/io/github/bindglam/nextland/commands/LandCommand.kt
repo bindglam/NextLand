@@ -15,10 +15,7 @@ import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.event.ClickEvent
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
-import org.bukkit.Bukkit
-import org.bukkit.Location
-import org.bukkit.Material
-import org.bukkit.OfflinePlayer
+import org.bukkit.*
 import org.bukkit.block.BlockType
 import org.bukkit.entity.Player
 import java.text.DecimalFormat
@@ -42,18 +39,16 @@ object LandCommand {
                             return@PlayerCommandExecutor
                         }
 
-                        if(player.world.name != "world" && player.world.name != "world_nether" && player.world.name != "world_the_end"){
-                            player.sendMessage(Component.text("땅은 오직 전용 월드에서만 생성 가능합니다!").color(NamedTextColor.RED))
+                        if(NextLand.INSTANCE.config.getStringList("banned.worlds").contains(player.world.name)) {
+                            player.sendMessage(Component.text("여기에는 땅을 생성할 수 없습니다!").color(NamedTextColor.RED))
                             return@PlayerCommandExecutor
                         }
 
-                        if(player.world.name == "world_the_end" && (player.chunk.x >= -2 && player.chunk.x <= 2) && (player.chunk.z >= -2 && player.chunk.z <= 2)){
-                            player.sendMessage(Component.text("여기에는 땅을 생성할 수 없습니다!").color(NamedTextColor.RED))
-                            return@PlayerCommandExecutor
-                        }
-                        if(player.world.name == "world_the_end" && player.chunk.contains(Material.END_GATEWAY.createBlockData())){
-                            player.sendMessage(Component.text("여기에는 땅을 생성할 수 없습니다!").color(NamedTextColor.RED))
-                            return@PlayerCommandExecutor
+                        for(blockID in NextLand.INSTANCE.config.getStringList("banned.blocks")) {
+                            if(player.chunk.contains(Registry.BLOCK.getOrThrow(NamespacedKey.fromString(blockID)!!).createBlockData())) {
+                                player.sendMessage(Component.text("금지된 블록을 감지했습니다!").color(NamedTextColor.RED))
+                                return@PlayerCommandExecutor
+                            }
                         }
 
                         player.sendMessage(Component.text("정말 생성하시겠습니까? ").color(NamedTextColor.WHITE)

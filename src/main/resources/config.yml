@@ -1,0 +1,5 @@
+banned:
+  worlds:
+    - world_the_end
+  blocks:
+    - BEDROCK

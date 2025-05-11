@@ -21,6 +21,8 @@ class NextLand : JavaPlugin() {
     override fun onEnable() {
         CommandAPI.onEnable()
 
+        saveDefaultConfig()
+
         INSTANCE = this
         LOGGER = componentLogger
 
@@ -35,8 +37,6 @@ class NextLand : JavaPlugin() {
         server.pluginManager.registerEvents(EntityListener(), this)
 
         LandManager.init()
-
-        saveDefaultConfig()
     }
 
     override fun onDisable() {
