@@ -1,22 +1,23 @@
 package io.github.bindglam.nextland.listeners
 
 import io.github.bindglam.nextland.LandManager
+import org.bukkit.entity.Explosive
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.event.entity.EntityExplodeEvent
+import org.bukkit.event.entity.ProjectileHitEvent
 
 class EntityListener : Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     fun onEntityDamageByEntity(event: EntityDamageByEntityEvent){
         val entity = event.entity
-        val attacker = event.damager
-        if(attacker !is Player) return
-        val land = LandManager.getLand(attacker.location) ?: return
 
-        if(!LandManager.isOwnerOrAdmin(land, attacker.uniqueId)){
+        val land = LandManager.getLand(entity.location)
+
+        if (land != null && LandManager.isOwnerOrAdmin(land, entity.uniqueId)) {
             event.isCancelled = true
         }
     }
@@ -33,6 +34,16 @@ class EntityListener : Listener {
             if(LandManager.getLand(block.location) != null){
                 blockList.remove(block)
             }
+        }
+    }
+
+    @EventHandler
+    fun onProjectileHit(event: ProjectileHitEvent){
+        val entity = event.hitEntity ?: return
+        val land = LandManager.getLand(entity.location)
+
+        if(land != null && LandManager.isOwnerOrAdmin(land, entity.uniqueId)){
+            event.isCancelled = true
         }
     }
 }

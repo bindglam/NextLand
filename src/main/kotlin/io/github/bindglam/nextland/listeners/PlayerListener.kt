@@ -46,13 +46,13 @@ class PlayerListener : Listener {
         enteredPlayers[player] = land
 
         for(x in 0..<16){
-            land.pos.world.spawnParticle(Particle.HAPPY_VILLAGER, land.pos.chunk.getBlock(0, 0, 0).location.add(x.toDouble(), player.location.y, 0.0), 1)
-            land.pos.world.spawnParticle(Particle.HAPPY_VILLAGER, land.pos.chunk.getBlock(0, 0, 0).location.add(x.toDouble(), player.location.y, 16.0), 1)
+            land.pos.world.spawnParticle(Particle.HAPPY_VILLAGER, land.pos.location.add(x.toDouble(), player.location.y, 0.0), 1)
+            land.pos.world.spawnParticle(Particle.HAPPY_VILLAGER, land.pos.location.add(x.toDouble(), player.location.y, 16.0), 1)
         }
 
         for(z in 0..<16){
-            land.pos.world.spawnParticle(Particle.HAPPY_VILLAGER, land.pos.chunk.getBlock(0, 0, 0).location.add(0.0, player.location.y, z.toDouble()), 1)
-            land.pos.world.spawnParticle(Particle.HAPPY_VILLAGER, land.pos.chunk.getBlock(0, 0, 0).location.add(16.0, player.location.y, z.toDouble()), 1)
+            land.pos.world.spawnParticle(Particle.HAPPY_VILLAGER, land.pos.location.add(0.0, player.location.y, z.toDouble()), 1)
+            land.pos.world.spawnParticle(Particle.HAPPY_VILLAGER, land.pos.location.add(16.0, player.location.y, z.toDouble()), 1)
         }
     }
 

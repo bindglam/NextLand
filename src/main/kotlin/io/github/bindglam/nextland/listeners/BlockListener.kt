@@ -14,27 +14,26 @@ class BlockListener : Listener {
         if(block.type.isSolid) return
 
         val land = LandManager.getLand(block.location) ?: return
+
         for(x in 0..15){
-            val chunk = land.pos.chunk
-            if(chunk.getBlock(x, 0, 0).x == block.x && chunk.getBlock(x, 0, 0).z == block.z){
+            val offsetLoc1 = land.pos.location.add(x.toDouble(), 0.0, 0.0)
+            val offsetLoc2 = land.pos.location.add(x.toDouble(), 0.0, 15.0)
+
+            if(offsetLoc1.blockX == block.x && offsetLoc1.blockZ == block.z){
+                event.isCancelled = true
+            }
+            if(offsetLoc2.blockX == block.x && offsetLoc2.blockZ == block.z){
                 event.isCancelled = true
             }
         }
         for(z in 0..15){
-            val chunk = land.pos.chunk
-            if(chunk.getBlock(0, 0, z).x == block.x && chunk.getBlock(0, 0, z).z == block.z){
+            val offsetLoc1 = land.pos.location.add(0.0, 0.0, z.toDouble())
+            val offsetLoc2 = land.pos.location.add(15.0, 0.0, z.toDouble())
+
+            if(offsetLoc1.blockX == block.x && offsetLoc1.blockZ == block.z){
                 event.isCancelled = true
             }
-        }
-        for(x in 0..15){
-            val chunk = land.pos.chunk
-            if(chunk.getBlock(x, 0, 15).x == block.x && chunk.getBlock(x, 0, 15).z == block.z){
-                event.isCancelled = true
-            }
-        }
-        for(z in 0..15){
-            val chunk = land.pos.chunk
-            if(chunk.getBlock(15, 0, z).x == block.x && chunk.getBlock(15, 0, z).z == block.z){
+            if(offsetLoc2.blockX == block.x && offsetLoc2.blockZ == block.z){
                 event.isCancelled = true
             }
         }
@@ -46,27 +45,26 @@ class BlockListener : Listener {
         if(block.type.isSolid) return
 
         val land = LandManager.getLand(block.location) ?: return
+
         for(x in 0..15){
-            val chunk = land.pos.chunk
-            if(chunk.getBlock(x, 0, 0).x == block.x && chunk.getBlock(x, 0, 0).z == block.z){
+            val offsetLoc1 = land.pos.location.add(x.toDouble(), 0.0, 0.0)
+            val offsetLoc2 = land.pos.location.add(x.toDouble(), 0.0, 15.0)
+
+            if(offsetLoc1.blockX == block.x && offsetLoc1.blockZ == block.z){
+                event.isCancelled = true
+            }
+            if(offsetLoc2.blockX == block.x && offsetLoc2.blockZ == block.z){
                 event.isCancelled = true
             }
         }
         for(z in 0..15){
-            val chunk = land.pos.chunk
-            if(chunk.getBlock(0, 0, z).x == block.x && chunk.getBlock(0, 0, z).z == block.z){
+            val offsetLoc1 = land.pos.location.add(0.0, 0.0, z.toDouble())
+            val offsetLoc2 = land.pos.location.add(15.0, 0.0, z.toDouble())
+
+            if(offsetLoc1.blockX == block.x && offsetLoc1.blockZ == block.z){
                 event.isCancelled = true
             }
-        }
-        for(x in 0..15){
-            val chunk = land.pos.chunk
-            if(chunk.getBlock(x, 0, 15).x == block.x && chunk.getBlock(x, 0, 15).z == block.z){
-                event.isCancelled = true
-            }
-        }
-        for(z in 0..15){
-            val chunk = land.pos.chunk
-            if(chunk.getBlock(15, 0, z).x == block.x && chunk.getBlock(15, 0, z).z == block.z){
+            if(offsetLoc2.blockX == block.x && offsetLoc2.blockZ == block.z){
                 event.isCancelled = true
             }
         }

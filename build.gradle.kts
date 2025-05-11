@@ -19,7 +19,7 @@ dependencies {
 
     implementation("dev.jorel:commandapi-bukkit-shade:10.0.0")
 
-    compileOnly("io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT")
+    compileOnly("dev.folia:folia-api:1.21.4-R0.1-SNAPSHOT")
     compileOnly("com.github.MilkBowl:VaultAPI:1.7") {
         exclude(module = "bukkit")
     }

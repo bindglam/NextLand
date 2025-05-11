@@ -4,6 +4,7 @@ import net.kyori.adventure.text.Component
 import org.bukkit.Location
 import org.bukkit.command.CommandSender
 import org.bukkit.configuration.file.YamlConfiguration
+import org.bukkit.configuration.serialization.ConfigurationSerialization
 import org.bukkit.entity.Player
 import java.io.File
 import java.util.UUID
@@ -18,8 +19,8 @@ class LandManager {
         val lands = ArrayList<Land>()
 
         fun init() {
-            Class.forName("io.github.bindglam.nextland.Land")
-            Class.forName("io.github.bindglam.nextland.ChunkPos")
+            ConfigurationSerialization.registerClass(ChunkPos::class.java)
+            ConfigurationSerialization.registerClass(Land::class.java)
 
             if(!landsFile.parentFile.exists())
                 landsFile.parentFile.mkdir()
@@ -52,7 +53,7 @@ class LandManager {
 
         fun getLand(location: Location): Land? {
             lands.forEach { land ->
-                if(land.pos.chunk == location.chunk)
+                if(land.pos.x == location.chunk.x && land.pos.z == location.chunk.z)
                     return land
             }
             return null

@@ -16,7 +16,10 @@ import net.kyori.adventure.text.event.ClickEvent
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Bukkit
+import org.bukkit.Location
+import org.bukkit.Material
 import org.bukkit.OfflinePlayer
+import org.bukkit.block.BlockType
 import org.bukkit.entity.Player
 import java.text.DecimalFormat
 
@@ -35,12 +38,21 @@ object LandCommand {
 
                         val requirePrice = LandManager.getOwnedLands(player.uniqueId).size*10000000.0
                         if(NextLand.ECONOMY!!.getBalance(player) < requirePrice){
-                            player.sendMessage(Component.text("땅을 생성하는데 필요한 소지금이 부족합니다! ( 필요 금액: ${requirePrice.toInt()}원 )").color(NamedTextColor.RED))
+                            player.sendMessage(Component.text("땅을 생성하는데 필요한 소지금이 부족합니다! ( 필요 금액: ${DecimalFormat().format(requirePrice.toLong())}원 )").color(NamedTextColor.RED))
                             return@PlayerCommandExecutor
                         }
 
-                        if(player.world.name != "world"){
+                        if(player.world.name != "world" && player.world.name != "world_nether" && player.world.name != "world_the_end"){
                             player.sendMessage(Component.text("땅은 오직 전용 월드에서만 생성 가능합니다!").color(NamedTextColor.RED))
+                            return@PlayerCommandExecutor
+                        }
+
+                        if(player.world.name == "world_the_end" && (player.chunk.x >= -2 && player.chunk.x <= 2) && (player.chunk.z >= -2 && player.chunk.z <= 2)){
+                            player.sendMessage(Component.text("여기에는 땅을 생성할 수 없습니다!").color(NamedTextColor.RED))
+                            return@PlayerCommandExecutor
+                        }
+                        if(player.world.name == "world_the_end" && player.chunk.contains(Material.END_GATEWAY.createBlockData())){
+                            player.sendMessage(Component.text("여기에는 땅을 생성할 수 없습니다!").color(NamedTextColor.RED))
                             return@PlayerCommandExecutor
                         }
 
@@ -62,9 +74,9 @@ object LandCommand {
                         for((i, land) in LandManager.lands.withIndex()){
                             if(LandManager.isOwnerOrAdmin(land, player.uniqueId)){
                                 player.sendMessage(Component.text("${i}번 - ").color(NamedTextColor.WHITE)
-                                    //.append(Component.text("월드 : ${land.chunkPos.world.name}, ").color(NamedTextColor.GREEN))
-                                    .append(Component.text("X : ${land.pos.chunk.getBlock(0, 0, 0).x}, ").color(NamedTextColor.RED))
-                                    .append(Component.text("Z : ${land.pos.chunk.getBlock(0, 0, 0).z}").color(NamedTextColor.BLUE))
+                                    .append(Component.text("월드 : ${land.pos.world.name}, ").color(NamedTextColor.GREEN))
+                                    .append(Component.text("X : ${land.pos.location.x}, ").color(NamedTextColor.RED))
+                                    .append(Component.text("Z : ${land.pos.location.z}").color(NamedTextColor.BLUE))
                                 )
                             }
                         }
