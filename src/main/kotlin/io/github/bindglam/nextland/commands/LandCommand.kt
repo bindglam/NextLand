@@ -13,6 +13,7 @@ import io.github.bindglam.nextland.NextLand
 import io.github.bindglam.nextland.events.LandCreateEvent
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.event.ClickEvent
+import net.kyori.adventure.text.event.HoverEvent
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.*
@@ -55,7 +56,15 @@ object LandCommand {
                             }
                         }
 
-                        player.sendMessage(Component.text("정말 생성하시겠습니까? ").color(NamedTextColor.WHITE)
+                        player.sendMessage(Component.text("---------------------").color(NamedTextColor.WHITE).appendNewline())
+                        player.sendMessage(Component.text("   정말 생성하시겠습니까? ").color(NamedTextColor.WHITE).decorate(TextDecoration.BOLD)
+                            .appendNewline()
+                            .append(Component.text("(원하는 옵선을 클릭해주세요.)").color(NamedTextColor.GRAY))
+                            .appendNewline()
+                            .appendNewline()
+                            .appendNewline()
+                            .appendNewline()
+                            .appendSpace().appendSpace().appendSpace().appendSpace()
                             .append(Component.text("[ 예 ]").color(NamedTextColor.GREEN).decorate(TextDecoration.BOLD).clickEvent(ClickEvent.callback { audience ->
                                 val plr = audience as Player
 
@@ -64,8 +73,13 @@ object LandCommand {
                                 plr.sendMessage(Component.text("성공적으로 땅을 생성하였습니다!").color(NamedTextColor.GREEN))
 
                                 LandCreateEvent(plr, ChunkPos(plr.world, plr.location.chunk.x, plr.location.chunk.z)).callEvent()
-                            }))
-                            .append(Component.text(" [ 아니오 ]").color(NamedTextColor.RED).decorate(TextDecoration.BOLD)))
+                            }).hoverEvent(HoverEvent.showText(Component.text("클릭하여 땅을 생성하세요.").color(NamedTextColor.WHITE).decorate(TextDecoration.BOLD))))
+                            .append(Component.text(" [ 아니오 ]").color(NamedTextColor.RED).decorate(TextDecoration.BOLD).clickEvent(ClickEvent.callback { audience ->
+                                audience.sendMessage(Component.text("땅 생성을 취소하였습니다.").color(NamedTextColor.RED))
+                            }).hoverEvent(HoverEvent.showText(Component.text("클릭하여 땅 생성을 취소하세요.").color(NamedTextColor.WHITE).decorate(TextDecoration.BOLD))))
+                            .appendNewline()
+                            .appendNewline()
+                            .append(Component.text("---------------------").color(NamedTextColor.WHITE).decoration(TextDecoration.BOLD, false)))
                     }),
                 CommandAPICommand("목록")
                     .executesPlayer(PlayerCommandExecutor { player, _ ->

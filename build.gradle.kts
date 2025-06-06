@@ -17,9 +17,8 @@ repositories {
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
 
-    implementation("dev.jorel:commandapi-bukkit-shade:10.0.0")
-
-    compileOnly("dev.folia:folia-api:1.21.4-R0.1-SNAPSHOT")
+    compileOnly("io.papermc.paper:paper-api:1.21.5-R0.1-SNAPSHOT")
+    compileOnly("dev.jorel:commandapi-bukkit-core:10.0.0")
     compileOnly("com.github.MilkBowl:VaultAPI:1.7") {
         exclude(module = "bukkit")
     }
@@ -31,14 +30,12 @@ tasks.build {
 
 tasks.shadowJar {
     archiveFileName = "NextLand.jar"
-
-    relocate("dev.jorel.commandapi", "io.github.bindglam.commandapi")
 }
 
 kotlin {
-    jvmToolchain(21)
+    jvmToolchain(22)
 }
 
 java {
-    toolchain.languageVersion.set(JavaLanguageVersion.of(21))
+    toolchain.languageVersion.set(JavaLanguageVersion.of(22))
 }

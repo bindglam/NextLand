@@ -1,7 +1,5 @@
 package io.github.bindglam.nextland
 
-import dev.jorel.commandapi.CommandAPI
-import dev.jorel.commandapi.CommandAPIBukkitConfig
 import io.github.bindglam.nextland.commands.LandCommand
 import io.github.bindglam.nextland.listeners.BlockListener
 import io.github.bindglam.nextland.listeners.EntityListener
@@ -13,14 +11,9 @@ import org.bukkit.plugin.java.JavaPlugin
 
 class NextLand : JavaPlugin() {
     override fun onLoad() {
-        CommandAPI.onLoad(CommandAPIBukkitConfig(this))
-
-        LandCommand.register()
     }
 
     override fun onEnable() {
-        CommandAPI.onEnable()
-
         saveDefaultConfig()
 
         INSTANCE = this
@@ -28,8 +21,8 @@ class NextLand : JavaPlugin() {
 
         if (!setupEconomy() ) {
             LOGGER.info(Component.text("잉! Vault가 없다능!"))
-            server.pluginManager.disablePlugin(this);
-            return;
+            server.pluginManager.disablePlugin(this)
+            return
         }
 
         server.pluginManager.registerEvents(PlayerListener(), this)
@@ -37,11 +30,11 @@ class NextLand : JavaPlugin() {
         server.pluginManager.registerEvents(EntityListener(), this)
 
         LandManager.init()
+
+        LandCommand.register()
     }
 
     override fun onDisable() {
-        CommandAPI.onDisable()
-
         LandManager.save()
     }
 

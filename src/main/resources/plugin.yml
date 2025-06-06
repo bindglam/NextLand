@@ -1,7 +1,7 @@
 name: NextLand
 main: io.github.bindglam.nextland.NextLand
 version: 1.0
-api-version: 1.20
-folia-supported: true
+api-version: 1.21
 depend:
   - Vault
+  - CommandAPI
