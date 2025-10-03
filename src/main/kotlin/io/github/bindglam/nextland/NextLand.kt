@@ -1,5 +1,7 @@
 package io.github.bindglam.nextland
 
+import dev.jorel.commandapi.CommandAPI
+import dev.jorel.commandapi.CommandAPIBukkitConfig
 import io.github.bindglam.nextland.commands.LandCommand
 import io.github.bindglam.nextland.listeners.BlockListener
 import io.github.bindglam.nextland.listeners.EntityListener
@@ -11,9 +13,14 @@ import org.bukkit.plugin.java.JavaPlugin
 
 class NextLand : JavaPlugin() {
     override fun onLoad() {
+        CommandAPI.onLoad(CommandAPIBukkitConfig(this))
+
+        LandCommand.register()
     }
 
     override fun onEnable() {
+        CommandAPI.onEnable()
+
         saveDefaultConfig()
 
         INSTANCE = this
@@ -30,11 +37,11 @@ class NextLand : JavaPlugin() {
         server.pluginManager.registerEvents(EntityListener(), this)
 
         LandManager.init()
-
-        LandCommand.register()
     }
 
     override fun onDisable() {
+        CommandAPI.onDisable()
+
         LandManager.save()
     }
 

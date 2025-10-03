@@ -17,11 +17,11 @@ repositories {
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
 
-    compileOnly("org.purpurmc.purpur:purpur-api:1.21.5-R0.1-SNAPSHOT")
-    compileOnly("dev.jorel:commandapi-bukkit-core:10.0.0")
+    compileOnly("org.purpurmc.purpur:purpur-api:1.21.8-R0.1-SNAPSHOT")
     compileOnly("com.github.MilkBowl:VaultAPI:1.7") {
         exclude(module = "bukkit")
     }
+    implementation("dev.jorel:commandapi-bukkit-shade:10.1.2")
 }
 
 tasks.build {
@@ -30,12 +30,14 @@ tasks.build {
 
 tasks.shadowJar {
     archiveFileName = "NextLand.jar"
+
+    relocate("dev.jorel.commandapi", "io.github.bindglam.nextland.shaded.commandapi")
 }
 
 kotlin {
-    jvmToolchain(22)
+    jvmToolchain(21)
 }
 
 java {
-    toolchain.languageVersion.set(JavaLanguageVersion.of(22))
+    toolchain.languageVersion.set(JavaLanguageVersion.of(21))
 }
